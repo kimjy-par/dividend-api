@@ -40,6 +40,11 @@ class Stock:
 
         return yearly_dividends
 
+    def print_yearly_dividends(self):
+        dividends = self.get_yearly_dividends()
+        for dividend in dividends:
+            print(dividend)
+
     def get_last_dividends(self):
         pass
 

@@ -12,13 +12,12 @@ class Stock:
 
     def avg_growth(self):
         dividends = self.get_yearly_dividends()
-        num_years = len(dividends)
         first_div = dividends[1].get('dividends')
         last_div = dividends[-2].get('dividends')
-
-        div_growth = (last_div-first_div)/first_div
-        avg_growth = div_growth/(num_years-2) * 100
-         
+        first_year = dividends[1].get('year')
+        last_year = dividends[-2].get('year')
+        avg_growth = (last_div/first_div)**(1/(last_year-first_year)) - 1        
+        avg_growth = avg_growth * 100
         return avg_growth
 
     def get_first_and_last_year_of_dividends(self):
@@ -63,8 +62,13 @@ class Stock:
         pass
 
 if __name__=="__main__":
-    stock = Stock('SPHD')
-    print(stock.dividends)
-    yearly_dividends = stock.get_yearly_dividends()
-    for dividend in yearly_dividends:
-        print(dividend)
+    etfs = ['spy', 'qqq', 'schd', 'dgrw', 'fdl', 'pey', 'xlp', 'idv', 'fdd', 'dgro']
+    
+    #etfs = ['vnq', 'o']
+    for etf in etfs:
+        stock = Stock(etf)
+        print(etf, stock.avg_growth())
+    for etf in etfs:
+        stock = Stock(etf)
+        print(etf)
+        stock.print_yearly_dividends()

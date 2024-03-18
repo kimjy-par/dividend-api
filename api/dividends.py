@@ -10,12 +10,12 @@ class Stock:
         self.dividends = pd.DataFrame(self.dividends).reset_index()
         self.dividends['Date'] = pd.to_datetime(self.dividends['Date']).dt.date
 
-    def avg_growth(self):
+    def avg_growth(self, first=1, last=-2):
         dividends = self.get_yearly_dividends()
-        first_div = dividends[1].get('dividends')
-        last_div = dividends[-2].get('dividends')
-        first_year = dividends[1].get('year')
-        last_year = dividends[-2].get('year')
+        first_div = dividends[first].get('dividends')
+        last_div = dividends[last].get('dividends')
+        first_year = dividends[first].get('year')
+        last_year = dividends[last].get('year')
         avg_growth = (last_div/first_div)**(1/(last_year-first_year)) - 1        
         avg_growth = avg_growth * 100
         return avg_growth
